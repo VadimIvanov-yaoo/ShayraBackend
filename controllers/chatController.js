@@ -280,7 +280,6 @@ class ChatController {
   async readMessageStatus(req, res, next) {
     try {
       const { dialogId, userId } = req.body
-
       await Message.update(
         { isRead: true },
         {
@@ -303,9 +302,11 @@ class ChatController {
       const { messageId, dialogId } = req.query
 
       const reaction = await MessageReaction.findAll({
-        messageId,
-        dialogId,
+        where: {
+          messageId: messageId,
+        },
       })
+
 
       return res.json(reaction)
     } catch (e) {
