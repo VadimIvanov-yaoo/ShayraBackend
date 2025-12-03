@@ -15,6 +15,7 @@ import * as path from 'node:path'
 import { v4 as uuidv4 } from 'uuid'
 import { fileURLToPath } from 'url'
 import { dirname, resolve } from 'path'
+import * as fs from 'node:fs'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -208,16 +209,28 @@ class ChatController {
       }
 
       const file = req.files.file
+      console.log('Файл пришёл:', file.name, file.size)
+
       const ext = path.extname(file.name)
       const fileName = uuidv4() + ext
-      const uploadPath = resolve(__dirname, '..', 'static', fileName)
+      const uploadDir = resolve(__dirname, '..', 'static')
+
+      console.log('Папка загрузки:', uploadDir)
+      if (!fs.existsSync(uploadDir)) {
+        console.log('Папка создана')
+        fs.mkdirSync(uploadDir, { recursive: true })
+      }
+      const uploadPath = path.join(uploadDir, fileName)
       await file.mv(uploadPath)
 
+      console.log('Файл сохранён:', uploadPath)
       return res.json({ filePath: fileName })
     } catch (e) {
+      console.error('Ошибка при загрузке файла:', e)
       next(e)
     }
   }
+
 
   async getMessage(req, res, next) {
     try {
