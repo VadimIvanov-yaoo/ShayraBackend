@@ -173,34 +173,6 @@ export default function initSocket(io) {
       }
     })
 
-    // socket.on('newReaction', async (data) => {
-    //   try {
-    //     const { messageId, userId, emojiId } = data
-    //
-    //     const existing = await MessageReaction.findOne({
-    //       where: { messageId, userId },
-    //     })
-    //
-    //     if (existing) {
-    //       if (emojiId === null) {
-    //         await existing.destroy()
-    //         io.emit('deleteReaction', { messageId, userId })
-    //       } else {
-    //         await existing.update({ emojiId })
-    //         io.emit('updatedReaction', { messageId, userId, emojiId })
-    //       }
-    //     } else {
-    //       if (emojiId !== null) {
-    //         const reaction = await MessageReaction.create({ messageId, userId, emojiId })
-    //         io.emit('reaction', reaction)
-    //       }
-    //     }
-    //   } catch (e) {
-    //     console.error('Ошибка при добавлении/обновлении реакции:', e)
-    //   }
-    // })
-
-
     socket.on('message', (msg) => {
       console.log('message: ' + msg)
     })
