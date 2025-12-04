@@ -26,6 +26,7 @@ const io = new Server(server, {
     credentials: true,
   },
 })
+app.set('socketio', io)
 
 app.use(
   cors({
@@ -38,6 +39,7 @@ app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
 app.use('/api', router)
 app.use(errorHandler)
+
 
 initSocket(io)
 
