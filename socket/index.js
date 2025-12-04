@@ -66,6 +66,11 @@ export default function initSocket(io) {
                     dialogId: data.dialogId,
                     time: data.time,
                     isRead: false,
+
+                    isForwarded: data.isForwarded || false,
+                    originalSenderId: data.originalSenderId,
+                    originalMessageId: data.originalMessageId,
+                    forwardedFrom: data.forwardedFrom
                 })
 
                 const dialog = await Dialog.findByPk(data.dialogId)

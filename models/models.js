@@ -95,11 +95,13 @@ const Message = sequelize.define('message', {
     type: DataTypes.STRING(120),
     allowNull: true,
   },
-
-  // emojiReaction: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: true,
-  // },
+    isForwarded: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    originalSenderId: DataTypes.INTEGER,
+    originalMessageId: DataTypes.INTEGER,
+    forwardedFrom: DataTypes.STRING,
 
   isRead: { type: DataTypes.BOOLEAN, defaultValue: false },
 })

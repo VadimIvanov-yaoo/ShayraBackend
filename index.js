@@ -40,7 +40,6 @@ app.use(fileUpload({}))
 app.use('/api', router)
 app.use(errorHandler)
 
-
 initSocket(io)
 
 const start = async () => {
