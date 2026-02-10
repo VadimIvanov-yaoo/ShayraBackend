@@ -3,8 +3,6 @@ import models from '../models/models.js'
 const { User, Chat, Dialog } = models
 import ApiError from '../error/ApiError.js'
 import jwt from 'jsonwebtoken'
-import { Op } from 'sequelize'
-import { where } from 'sequelize'
 
 function generateJwt(id, email) {
   return jwt.sign({ id, email }, process.env.SECRET_KEY, {
